@@ -40,15 +40,16 @@
             </option>
             {% endfor %}
           </select>
-          <select name="Crop">
+          <select
+            name="crop"
+            id="crops"
+            class="form-control"
+            onchange="changeCrop(this.value)"
+          >
+            <option value="all">All Crop</option>
             {% for crop in crops %}
-            <option id="{{crop.crop}}" value="{{crop}}">{{crop.crop}}</option>
+            <option value="{{ crop.crop }}">{{crop.crop}}</option>
             {% endfor %}
-          </select>
-          <select name="crop">
-            <option value="village">1</option>
-            <option value="village1">34</option>
-            <option value="village2">56</option>
           </select>
         </div>
       </div>
