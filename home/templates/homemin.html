@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="/static/main.css" />
+  </head>
+  <body>
+    {{data|json_script:"agriland-data"}}
+
+    <div id="home">
+      <div id="header">
+        <h1>AgriLand</h1>
+        <h3>Find your next farm</h3>
+
+        <div id="search">
+          <form action="/search" method="GET">
+            <input
+              type="text"
+              name="search"
+              id="searchInput"
+              placeholder="Search for a farm"
+            />
+            <button type="submit" id="searchButton">Search</button>
+          </form>
+        </div>
+        <div>
+          <h3>Find Farms by crop</h3>
+          <select name="village">
+            {% for village in villages %}
+            <option id="{{village}}" value="{{village}}">
+              {{village.village}}
+            </option>
+            {% endfor %}
+          </select>
+          <select
+            name="crop"
+            id="crops"
+            class="form-control"
+            onchange="changeCrop(this.value)"
+          >
+            <option value="all">All Crop</option>
+            {% for crop in crops %}
+            <option value="{{ crop.crop }}">{{crop.crop}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div id="mainMap">
+        <div id="map"></div>
+      </div>
+    </div>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="/static/min.js"></script>
+  </body>
+</html>
