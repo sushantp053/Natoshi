@@ -18,3 +18,11 @@ def homeMin(request):
     c = AgriLand.objects.distinct("crop").all()
 
     return render(request, "homemin.html", context={"data": data, "villages": v, "crops": c})
+
+def canal(request):
+    v = AgriLand.objects.distinct("village").all()
+    c = AgriLand.objects.distinct("crop").all()
+
+    return render(request, "canal.html", context={ "villages": v, "crops": c})
+
+
