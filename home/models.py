@@ -1,12 +1,9 @@
 from django.contrib.gis.db import models
 import uuid
 
-# Create your models here.
-
 
 class AgriLand(models.Model):
-    id = models.UUIDField(primary_key=True, unique=True,
-                          editable=False, default=uuid.uuid4)
+    id = models.AutoField(primary_key=True, unique=True,)
     gutno = models.IntegerField()
     geom = models.MultiPolygonField()
     gut = models.TextField()
@@ -16,6 +13,13 @@ class AgriLand(models.Model):
     village = models.TextField()
     area = models.FloatField()
     gut_no = models.TextField()
+
+    def save(self, *args, **kwargs):
+        if not AgriLand.objects.count():
+            self.id = 1000
+        else:
+            self.id = AgriLand.objects.last().id + 1
+        super(AgriLand, self).save(*args, **kwargs)
 
     class Meta:
         managed = False
