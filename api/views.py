@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from api.serializers import *
 from rest_framework import viewsets
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from home.models import *
 
@@ -18,7 +20,17 @@ class CanalViewSet(viewsets.ModelViewSet):
     serializer_class = CanalSerializer
 
 
-class AgriLandByVillageViewSet(viewsets.ModelViewSet):
+class AgriLandByVillageViewSet(APIView):
 
-    queryset = AgriLand.objects.all()
-    serializer_class = AgriLandSerializer
+    def get(self, request, village):
+        data = request.data
+        data = AgriLand.objects.filter(village=village)
+        serializer = AgriLandSerializer(data, many=True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        data = request.data
+        village = data.get("village")   
+        data = AgriLand.objects.filter(village=village)
+        serializer = AgriLandSerializer(data, many=True)
+        return Response(serializer.data)

@@ -8,4 +8,5 @@ router.register(r'canal', CanalViewSet)
 
 urlpatterns = [
     path('v1/', include(router.urls)),
+    path('v1/agriland/<str:village>', AgriLandByVillageViewSet.as_view()),
 ]

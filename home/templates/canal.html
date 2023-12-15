@@ -31,9 +31,12 @@
         </div>
         <div>
           <h3>Find Farms by crop</h3>
-          <select name="village">
+          <select name="village" 
+          id="villages" 
+          class="form-control"
+          onchange= "changeVillage(this.value)">  
             {% for village in villages %}
-            <option id="{{village}}" value="{{village}}">
+            <option id="{{village.village}}" value="{{village.village}}">
               {{village.village}}
             </option>
             {% endfor %}
@@ -42,7 +45,7 @@
             name="crop"
             id="crops"
             class="form-control"
-            {% comment %} onchange="changeCrop(this.value)" {% endcomment %}
+            onchange="changeCrop(this.value)"
           >
             <option value="all">All Crop</option>
             {% for crop in crops %}
