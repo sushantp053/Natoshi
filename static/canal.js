@@ -33,24 +33,27 @@ canal.then((response) => {
             return { color: "blue" };
         },
     }).bindPopup(function (layer) {
-        return layer.feature.properties;
+        return layer.feature.properties.crop + " " + layer.feature.properties.area  + " " + layer.feature.properties.village  ;
       })
       .addTo(map);
     }
     );
 
-function fetchdata( village = "Kokisare") {
-fetch("http://127.0.0.1:8000/api/v1/agriland/"+village).then((response) => {
-    console.log(response)
+function fetchdata(village = "Kokisare") {
+
+adata =  fetch("http://127.0.0.1:8000/api/v1/agriland/"+village).then((response) => {
     return response.json();
     }).then((data) => {
     currentVillage = data
     let lv = L.geoJSON(data, {
         style: function (feature) {
-            return { color: "red" };
+            return { color: "red",
+            fillColor: "green",
+            fillOpacity: 0.5,
+            weight: 1, };
         },
     }).bindPopup(function (layer) {
-        return layer.feature.properties;
+        return layer.feature.properties.crop + " " + layer.feature.properties.area  + " " + layer.feature.properties.village;
       })
       .addTo(map);
 
@@ -72,7 +75,8 @@ function changeCrop(crop){
       return feature.properties.crop == crop;
     }
 }).bindPopup(function (layer) {
-    return layer.feature.properties;
+    
+    return layer.feature.properties.crop + " " + layer.feature.properties.area  + " " + layer.feature.properties.village;
   })
   .addTo(map);
 

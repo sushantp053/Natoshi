@@ -23,7 +23,6 @@ class CanalViewSet(viewsets.ModelViewSet):
 class AgriLandByVillageViewSet(APIView):
 
     def get(self, request, village):
-        data = request.data
         data = AgriLand.objects.filter(village=village)
         serializer = AgriLandSerializer(data, many=True)
         return Response(serializer.data)
